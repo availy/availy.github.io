@@ -1,0 +1,162 @@
+<!--
+
+
+
+
+        $$$$$$$\                      $$\ $$\
+        $$  __$$\                     \__|$$ |
+        $$ /  $$ |$$\    $$\ $$$$$$\  $$\ $$ |$$\   $$\
+        $$$$$$$$ |\$$\  $$  |\____$$\ $$ |$$ |$$ |  $$ |
+        $$  __$$ | \$$\$$  / $$$$$$$ |$$ |$$ |$$ |  $$ |
+        $$ |  $$ |  \$$$  / $$  __$$ |$$ |$$ |$$ |  $$ |
+        $$ |  $$ |   \$  /  \$$$$$$$ |$$ |$$ |\$$$$$$$ |
+        \__|  \__|    \_/    \_______|\__|\__| \____$$ |
+                                             $$\   $$ |
+                                             \$$$$$$  |
+                                              \______/
+
+
+-->
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Working in a remote team and want to know where your colleagues are? Add Availy to your Slack team and get slash commands for setting your status. It's visible next to your name and posted in channel.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui, user-scalable=no">
+    <title>Availy for Slack</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="assets/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="assets/favicon-16x16.png" sizes="16x16">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>
+          <img src="assets/logo.png" alt="Availy logo">
+          <span>Availy</span> <sup>alpha</sup>
+        </h1>
+
+        <p class="slogan">Show your availability to colleagues</p>
+
+        <p class="description">
+          Especially when working in remote teams it can be hard to see where your colleagues actually are.<br>
+          Availy solves this problem by providing slash commands for setting a status in Slack.<br>
+          The status appears next to the name in form of an emoji <span class="emoji">👌</span>
+        </p>
+
+        <div class="error" id="error">
+          <p><span class="emoji emoji--left">🚫</span> Integration could not be added to your Slack team</p>
+        </div>
+
+        <div class="installed" id="installed">
+          <p>Integration has been added to your Slack team <span class="emoji">✅</span></p>
+        </div>
+
+        <div class="slack-button">
+          <a href="https://slack.com/oauth/authorize?scope=commands,chat:write:bot,users.profile:read,users.profile:write&amp;client_id=9773282167.1321734534571"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"></a>
+        </div>
+      </header>
+
+      <section class="instructions">
+        <h2>Available commands</h2>
+
+        <div>
+          <div class="command-group">
+            <div class="inner">
+              <div class="command-box" id="check-in">
+                <h3><a href="#check-in">Check-in</a> <span class="emoji">🏠</span><span class="emoji">🏢</span></h3>
+                <p>Start your day by checking in and tell where you work today</p>
+                <div class="command"><strong>/check-in</strong> [home|office] <span class="optional">[optional message]</span></div>
+              </div>
+
+              <div class="command-box" id="check-out">
+                <h3><a href="#check-out">Check-out</a> <span class="emoji emoji--removed">🏢</span><span class="emoji emoji--removed">🏠</span></h3>
+                <p>End your day by checking out and say goodbye</p>
+                <div class="command"><strong>/check-out</strong> <span class="optional">[optional message]</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="command-group">
+            <div class="inner">
+              <div class="command-box" id="ofl">
+                <h3><a href="#ofl">Out for lunch</a> <span class="emoji">🍴</span></h3>
+                <p>Tell your colleagues that you are out for lunch now</p>
+                <div class="command"><strong>/ofl</strong> <span class="optional">[optional message]</span></div>
+              </div>
+
+              <div class="command-box" id="bfl">
+                <h3><a href="#bfl">Back from lunch</a> <span class="emoji emoji--removed">🍴</span></h3>
+                <p>End your lunch.</p>
+                <div class="command"><strong>/bfl</strong> <span class="optional">[optional message]</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="command-group">
+            <div class="inner">
+              <div class="command-box" id="out">
+                <h3><a href="#out">Out of office</a> <span class="emoji">➡️</span></h3>
+                <p>You need to leave the office?</p>
+                <div class="command"><strong>/out</strong> <span class="optional">[optional message]</span></div>
+              </div>
+
+              <div class="command-box" id="back">
+                <h3><a href="#back">Back in office</a> <span class="emoji emoji--removed">➡️</span></h3>
+                <p>Mark yourself as back in the office</p>
+                <div class="command"><strong>/back</strong> <span class="optional">[optional message]</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="command-group">
+            <div class="inner">
+              <div class="command-box" id="focus">
+                <h3><a href="#focus">Focus</a> <span class="emoji">👁</span></h3>
+                <p>Let your colleagues know that you are focused right now</p>
+                <div class="command"><strong>/focus</strong> <span class="optional">[optional message]</span></div>
+              </div>
+
+              <div class="command-box" id="unfocus">
+                <h3><a href="#unfocus">Unfocus</a> <span class="emoji emoji--removed">👁</span></h3>
+                <p>Stop your focus session</p>
+                <div class="command"><strong>/unfocus</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="command-group">
+            <div class="inner">
+              <div class="command-box" id="sick">
+                <h3><a href="#sick">Sick</a> <span class="emoji">😷</span></h3>
+                <p>Tell your colleagues that you got sick</p>
+                <div class="command"><strong>/sick</strong> [reason]</div>
+              </div>
+
+              <div class="command-box" id="recovered">
+                <h3><a href="#recovered">Recovered</a> <span class="emoji emoji--removed">😷</span></h3>
+                <p>Tell that you are back on track</p>
+                <div class="command"><strong>/recovered</strong> <span class="optional">[optional message]</span></div>
+              </div>
+            </div>
+          </div>
+          </section>
+
+          <section class="faq" id="faq">
+          <div class="inner">
+            <h2><a href="#faq">FAQ</a></h2>
+            <details>
+              <summary>I cannot see the status indicator next to usernames</summary>
+              <div>
+                <p>Make sure you have real names instead of usernames displayed in Slack.</p>
+                <p><em>Settings</em> → <em>Messages & Media</em> → <span class="emoji emoji--left">✅</span> <em>Display real names instead of usernames</em></p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
